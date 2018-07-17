@@ -19,6 +19,7 @@ name_01 = "qq"
 name_02 = "ww"
 id_temp = -1 
 
+
 def set_variable():
 	global name_01
 	global name_02
@@ -37,6 +38,7 @@ def get_connection():
 
 	db = MySQLdb.connect(HOST,USER,PASSWD,DB)
 	cursor = db.cursor()
+	return cursor
 
 
 
@@ -62,15 +64,29 @@ def get_connection():
 #   	fname = row[0]
     
 # 	print "fname=%s" % (fname)
+def executeQuery(self, sqlcode):
+        try:
+            self.cur.execute(sqlcode)
+            resultSet = self.cur.fetchall()
+            self.conn.commit()
+            return resultSet
+        except Exception as e:
+            self.conn.rollback()
+            raise e
 
 # 查找原账户ID
 def find_id(name):
 
-	try:
+
+		cursor = get_connection()
+	
+	# try:
 	#    # 执行SQL语句	
+		
 		sql_check = 'select id from auth_user where username = "%s";'%(name)
 		print sql_check
 		res = cursor.execute(sql_check)
+		print res
 		while res == 0:
 			print "账户未找到，请重新输入0"
 			name_01 = raw_input("Please intput name_01:")
@@ -86,15 +102,17 @@ def find_id(name):
 		for row in results:
 			fname = row[0]   
 			global id_temp
+			global name_01
+			global name_02
 			print "%s : %s" % (name_01, fname)
 			id_temp= fname
 			
 	   
-	except:
-	    print "Error: unable to fecth data with name_01"
+	# except:
+	#     print "Error: unable to fecth data with name_01"
 
 
-	return id_temp
+		return id_temp
 
 
 
@@ -170,7 +188,7 @@ if __name__ == '__main__':
 	set_variable()
 	print name_01
 	print name_02
-	get_connection()
+	
 	id_01 = find_id(name_01)
 	id_02 = find_id(name_02)
 	print id_01
