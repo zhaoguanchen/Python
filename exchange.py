@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import MySQLdb
+import datetime
 
 #主机名
 LOCALHOST = '192.168.0.1'
@@ -119,6 +120,14 @@ def confirm(name_01,name_02,id_01,id_02):
 		return False
 
 
+# 日志记录
+def log(name_01,name_02):
+
+	now_time = datetime.datetime.now()
+	f = open("log.txt","a")
+	f.write("%s,   原账户：%s----->目标账户：%s \n"%(now_time, name_01, name_02))
+	f.close()
+	print "日志已记录"
 
 if __name__ == '__main__':
 
@@ -150,4 +159,5 @@ if __name__ == '__main__':
 	else :
 	 	print "错了？ 重来吧"
 	close_connection(db)
+	log(name_01,name_02)
 
