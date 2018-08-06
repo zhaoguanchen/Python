@@ -2,7 +2,7 @@
 
 import MySQLdb
 import datetime
-
+#git test:
 #主机名
 LOCALHOST = '192.168.0.1'
 HOST = '192.168.15.55'
