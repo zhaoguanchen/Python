@@ -11,4 +11,4 @@ f = open("log.txt","a")
 f.write("now_time %s"%(now_time))
 f.close()
 
-
+# dadsaad
