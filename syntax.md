@@ -314,6 +314,26 @@ with open(file_name, 'a') as file_obj:
     file_obj.write("hhhh")
 
 ```
+
+json方式写入：
+
+```py
+import json
+
+numbers = [1, 4, 3, 2]
+
+file_name = '/Users/zhaoguanchen/Desktop/txt/num.json'
+# 写入
+with open(file_name, 'w') as file_obj:
+    json.dump(numbers, file_obj)
+# 读取
+with open(file_name) as file_obj:
+    numbers1 = json.load(file_obj)
+
+print(numbers1)
+
+```
+
 异常：
 try-except
 ```py
@@ -327,7 +347,25 @@ else:
 
 ```
 
+### 测试
+
+```py
+def get_format_name(first, last):
+    full_name = first + ' ' + last
+    return full_name.title()
+```
+```py
+import unittest
+from hello import get_format_name
 
 
+class NameTestCase(unittest.TestCase):
+    def test_first_last_name(self):
+        format_name = get_format_name("guanchen", "zhao")
+        self.assertEqual(format_name, "Guanchen Zhao")
+
+
+unittest.main()
+```
 
 
